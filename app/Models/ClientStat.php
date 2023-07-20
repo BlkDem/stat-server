@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use App\Casts\JsonCollect;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Casts\AsCollection;
 
 class ClientStat extends Model
 {
@@ -25,7 +25,7 @@ class ClientStat extends Model
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
-        // 'blob' => AsCollection::class,
+        'blob' => JsonCollect::class,
     ];
 
 
