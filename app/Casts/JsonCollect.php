@@ -13,11 +13,10 @@ class JsonCollect implements CastsAttributes
      * @param  string  $key
      * @param  mixed  $value
      * @param  array  $attributes
-     * @return array
+     * @return Collection
      */
     public function get($model, $key, $value, $attributes)
     {
-        // return json_decode($value, true);
         return collect(json_decode($value, true));
     }
 
@@ -32,7 +31,6 @@ class JsonCollect implements CastsAttributes
      */
     public function set($model, $key, $value, $attributes)
     {
-        // return json_encode($value);
         return $value;
     }
 }
