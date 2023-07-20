@@ -13,10 +13,10 @@ class ClientStatController extends ResponseConstructorController
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
 
-        $res = ClientStat::orderBy('created_at', 'asc')->get();
+        $res = ClientStat::orderBy('created_at', 'desc')->get();
 
         $paginator = PaginatorController::Paginate($res->count(), 1, 1);
 
