@@ -48,8 +48,6 @@ class ClientStatController extends ResponseConstructorController
 
         $request['blob'] = json_encode( $blob );
 
-        // dd($request->all());
-
         $validator = ValidatorRules::MakeValidate($request, 'client_stats');
         if ($validator->fails()) {
             return $this->sendError($validator->errors(), 400);
@@ -57,7 +55,7 @@ class ClientStatController extends ResponseConstructorController
         try {
 
             $newStat = ClientStat::create($request->all());
-            return $this->sendSuccess($newStat, "Stat Added", 201);
+            return $this->sendSuccess($newStat, "Stat Added", false, 201);
         }
         catch (\Exception $e) {
             return $this->sendError('Creating Record Error: ' . $e, 400);
