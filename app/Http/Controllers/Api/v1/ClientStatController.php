@@ -8,9 +8,21 @@ use App\Http\Controllers\Api\v1\PaginatorController;
 use App\Http\Controllers\Api\v1\ResponseConstructorController;
 use App\Http\Middleware\ValidatorRules;
 use App\Http\Controllers\Controller;
+use NotificationChannels\Telegram\TelegramMessage;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\ClientStatPublished;
+use Illuminate\Support\Facades\Http;
 
 class ClientStatController extends ResponseConstructorController
 {
+
+    public function SendNotifyToTelegram($message)
+    {
+        // Notification::send('test', new ClientStatPublished('test'));
+        Http::get('https://api.telegram.org/bot5644940687:AAHn4Ulsma4a6van8s85dfEMOpvGMW5kwaw/sendMessage?chat_id=645535275&text=' . $message);
+    }
+
+
     /**
      * Display a listing of the resource.
      */
@@ -56,6 +68,13 @@ class ClientStatController extends ResponseConstructorController
         try {
 
             $newStat = ClientStat::create($request->all());
+            // dd(collect($newStat['blob']));
+            $notify = 'IP: ' . $newStat['IP'] . ' Instance: ' . $newStat['instance'] . ' ' .
+                'https://stat.cv.blkdem.ru/api/v1/stat/read/' . $newStat['id'];
+
+            // dd($notify);
+
+            $this->SendNotifyToTelegram($notify);
             return $this->sendSuccess($newStat, "Stat Added", false, 201);
         }
         catch (\Exception $e) {
