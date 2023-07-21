@@ -19,7 +19,10 @@ class ClientStatController extends ResponseConstructorController
     public function SendNotifyToTelegram($message)
     {
         // Notification::send('test', new ClientStatPublished('test'));
-        Http::get('https://api.telegram.org/bot5644940687:AAHn4Ulsma4a6van8s85dfEMOpvGMW5kwaw/sendMessage?chat_id=645535275&text=' . $message);
+        return Http::get('https://api.telegram.org/bot' . env('TELEGRAM_BOT_TOKEN', '') . '/sendMessage?chat_id=645535275&text=' . $message);
+        // return Http::post(
+        //     'https://api.telegram.org/bot' . env('TELEGRAM_BOT_TOKEN', '') . '/sendMessage',
+        //     "chat_id=645535275&text=hello%20friend");
     }
 
 
@@ -74,7 +77,8 @@ class ClientStatController extends ResponseConstructorController
 
             // dd($notify);
 
-            $this->SendNotifyToTelegram($notify);
+            $telegramResponse = $this->SendNotifyToTelegram($notify);
+            $newStat['response'] = $telegramResponse;
             return $this->sendSuccess($newStat, "Stat Added", false, 201);
         }
         catch (\Exception $e) {
