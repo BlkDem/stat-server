@@ -18,11 +18,13 @@ class ClientStatController extends ResponseConstructorController
 
     public function SendNotifyToTelegram($message)
     {
+        // Notification::send()
+        // Notification::send($users, new ClientStatPublished('test'));
         // Notification::send('test', new ClientStatPublished('test'));
         // return Http::get('https://api.telegram.org/bot' . env('TELEGRAM_BOT_TOKEN', '') . '/sendMessage?chat_id=645535275&text=' . $message);
-        return Http::post(
-            'https://api.telegram.org/bot' . env('TELEGRAM_BOT_TOKEN', '') . '/sendMessage?chat_id=645535275&text=' .
-            $message);
+        // return Http::post(
+        //     'https://api.telegram.org/bot' . env('TELEGRAM_BOT_TOKEN', '') . '/sendMessage?chat_id=645535275&text=' .
+        //     $message);
     }
 
 
@@ -37,6 +39,22 @@ class ClientStatController extends ResponseConstructorController
         $paginator = PaginatorController::Paginate($res->count(), 1, 1);
 
         return $this->sendResponse($res, "Statistic info", $paginator);
+
+    }
+
+    /**
+     * Display a short listing of the resource.
+     */
+    public function indexShort()
+    {
+
+        $res = ClientStat::select('id', 'instance', 'IP', 'browser')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $paginator = PaginatorController::Paginate($res->count(), 1, 1);
+
+        return $this->sendResponse($res, "Statistic info (short)", $paginator);
 
     }
 

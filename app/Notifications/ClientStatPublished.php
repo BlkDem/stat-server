@@ -5,19 +5,24 @@ namespace App\Notifications;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+
 use Illuminate\Notifications\Notification;
+use NotificationChannels\Telegram\TelegramChannel;
 use NotificationChannels\Telegram\TelegramMessage;
+
+// use Illuminate\ laravel-notification-channels
+// C:\projects\stat-server\vendor\laravel-notification-channels
+
 
 class ClientStatPublished extends Notification
 {
     use Queueable;
 
-    /**
-     * Create a new notification instance.
-     */
-    public function __construct()
+    protected $message;
+
+    public function __construct($message)
     {
-        //
+        $this->message = $message;
     }
 
     /**
@@ -54,8 +59,11 @@ class ClientStatPublished extends Notification
         ];
     }
 
-    public function toTelegram($post)
+    public function toTelegram($notifiable)
     {
+        return TelegramMessage::create()
+            ->to($notifiable->telegram_chat_id)
+            ->content($this->message);
         // return TelegramMessage::create()
         //     ->to('@MyBlkdemBot')
         //     ->content($post->id . ' https://laravel-news.com/'. $post->created_at);

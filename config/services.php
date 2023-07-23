@@ -32,7 +32,8 @@ return [
     ],
 
     'telegram-bot-api' => [
-        'token' => env('TELEGRAM_BOT_TOKEN', '5644940687:AAHn4Ulsma4a6van8s85dfEMOpvGMW5kwaw'),
+        'token' => env('TELEGRAM_BOT_TOKEN', ''),
+        'name' => env('TELEGRAM_BOT_NAME', '@MyBlkdemBot')
     ],
 
 ];

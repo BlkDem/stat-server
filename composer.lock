@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2652e1ed7faee32bd3afd341397f2a0c",
+    "content-hash": "a1b9cbe45e8ce5bde8330582a3a58830",
     "packages": [
         {
             "name": "brick/math",
@@ -976,16 +976,16 @@
         },
         {
             "name": "laravel-notification-channels/telegram",
-            "version": "4.0.0",
+            "version": "dev-l10-compatibility",
             "source": {
                 "type": "git",
-                "url": "https://github.com/laravel-notification-channels/telegram.git",
-                "reference": "c67b312193fcd59c8abad1ee1f5b1f4e5540c201"
+                "url": "https://github.com/laravel-shift/telegram.git",
+                "reference": "fd21000bd26b781acb79b0d45c2af7435be2dcf0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel-notification-channels/telegram/zipball/c67b312193fcd59c8abad1ee1f5b1f4e5540c201",
-                "reference": "c67b312193fcd59c8abad1ee1f5b1f4e5540c201",
+                "url": "https://api.github.com/repos/laravel-shift/telegram/zipball/fd21000bd26b781acb79b0d45c2af7435be2dcf0",
+                "reference": "fd21000bd26b781acb79b0d45c2af7435be2dcf0",
                 "shasum": ""
             },
             "require": {
@@ -1020,7 +1020,25 @@
                     "NotificationChannels\\Telegram\\": "src"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "NotificationChannels\\Telegram\\Tests\\": "tests"
+                }
+            },
+            "scripts": {
+                "post-autoload-dump": [
+                    "@php ./vendor/bin/testbench package:discover --ansi"
+                ],
+                "analyse": [
+                    "vendor/bin/phpstan analyse"
+                ],
+                "test": [
+                    "vendor/bin/pest"
+                ],
+                "test-coverage": [
+                    "vendor/bin/pest --coverage"
+                ]
+            },
             "license": [
                 "MIT"
             ],
@@ -1042,10 +1060,9 @@
                 "telegram notifications channel"
             ],
             "support": {
-                "issues": "https://github.com/laravel-notification-channels/telegram/issues",
-                "source": "https://github.com/laravel-notification-channels/telegram/tree/4.0.0"
+                "source": "https://github.com/laravel-shift/telegram/tree/l10-compatibility"
             },
-            "time": "2023-02-14T18:21:03+00:00"
+            "time": "2023-01-31T23:41:50+00:00"
         },
         {
             "name": "laravel/framework",
@@ -8016,7 +8033,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "laravel-notification-channels/telegram": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

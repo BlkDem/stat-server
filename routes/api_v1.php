@@ -19,4 +19,5 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/stat/read', [ClientStatController::class, 'index']);
+Route::get('/stat/short', [ClientStatController::class, 'indexShort']);
 Route::post('/stat/create', [ClientStatController::class, 'store']);
